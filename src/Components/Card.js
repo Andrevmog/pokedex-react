@@ -1,13 +1,9 @@
-import { useQuery } from 'react-query';
-import axios from 'axios';
-import { useRef } from 'react';
+import React, { useEffect, useRef } from "react";
+import { useQuery } from "react-query";
+import { fetchPokemonData } from '../Services/pokemonService'; // Importa o serviço
 import { FaVolumeUp } from 'react-icons/fa';
 
-const fetchPokemonData = async (url) => {
-    const response = await axios.get(url);
-    return response.data;
-};
-
+// Definindo as cores dos tipos de Pokémon
 const typeColors = {
     grass: 'bg-green-500',
     poison: 'bg-purple-500',
@@ -32,14 +28,14 @@ const typeColors = {
 const Card = ({ pokemon }) => {
     const { data, isLoading, error } = useQuery(
         ['pokemon', pokemon.url],
-        () => fetchPokemonData(pokemon.url)
+        () => fetchPokemonData(pokemon.url) // Usa a função do serviço
     );
 
     const audioRef = useRef(null);
 
     const handlePlaySound = () => {
         if (audioRef.current) {
-            audioRef.current.volume = 0.02;
+            audioRef.current.volume = 0.02; // Ajusta o volume
             audioRef.current.play().catch(err => console.log(err));
         }
     };
@@ -53,7 +49,7 @@ const Card = ({ pokemon }) => {
     }
 
     return (
-        <div className=" select-none relative flex flex-col items-center justify-center p-4 w-1/5 bg-gradient-to-br from-red-300 to-red-400 border-none rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+        <div className="relative flex flex-col items-center justify-center p-4 w-1/5 bg-red-400 border border-red-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
             <audio ref={audioRef} src={data.cries.latest} />
             <img className="object-cover h-32 w-32 mb-4 rounded-full border-4 border-gray-800 bg-white" src={data.sprites.front_default} alt={data.name} />
             <h5 className="text-lg font-bold text-gray-800">
@@ -69,6 +65,7 @@ const Card = ({ pokemon }) => {
                     </p>
                 ))}
             </div>
+            {/* Botão de som no canto superior direito */}
             <button 
                 onClick={handlePlaySound} 
                 className="absolute top-2 right-2 p-1 bg-gray-800 rounded-full text-white hover:bg-gray-700 transition duration-300"

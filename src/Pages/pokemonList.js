@@ -1,23 +1,15 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useQuery } from "react-query";
 import Card from '../Components/Card';
-
-// Função para buscar Pokémon
-const fetchPokemons = async (url) => {
-    const { data } = await axios.get(url);
-    return data;
-};
+import { fetchPokemons } from '../Services/pokemonService'; // Importa o serviço
 
 function PokemonList() {
     const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon/?limit=20");
-    const { data, status } = useQuery(["pokemons", url], () => fetchPokemons(url));
+    const { data, status } = useQuery(["pokemons", url], () => fetchPokemons(url)); // Usa a função do serviço
 
-    // Renderizar cartões de Pokémon
     const renderPokemonCards = (pokemons) => {
-        // Verifica se pokemons e results existem
         if (!pokemons || !pokemons.results) {
-            return null; // Ou um carregamento ou uma mensagem de erro
+            return null;
         }
 
         return pokemons.results.map((pokemon) => (
@@ -41,6 +33,13 @@ function PokemonList() {
                     disabled={!data?.next}
                 >
                     Próximo
+                </button>
+                <button 
+                    className={`bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ${url === "https://pokeapi.co/api/v2/pokemon/?limit=20" ? 'disabled:bg-slate-500' : ''}`}
+                    onClick={() => setUrl("https://pokeapi.co/api/v2/pokemon/?limit=20")}
+                    disabled={url === "https://pokeapi.co/api/v2/pokemon/?limit=20"}
+                >
+                    Início
                 </button>
             </div>
 

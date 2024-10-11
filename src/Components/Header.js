@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = () => {
     return (
-        <header className="bg-red-600 p-4 text-white shadow-md fixed w-full flex justify-between top-0 left-0">
+        <header className="bg-red-600 p-4 text-white shadow-md fixed w-full flex justify-between top-0 left-0 z-10">
             <div className="container mx-auto flex justify-between items-center">
                 <a href="#" className="text-3xl font-bold">Pokedéx</a>
                 <nav>

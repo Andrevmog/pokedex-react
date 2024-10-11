@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 html, body{
-  display: block;
+  display: flex;
   height: 100%;
 }
 
@@ -16,6 +16,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin: 30px;
   position: relative;
+  background-image: url('https://i.pinimg.com/originals/af/92/99/af92992e01ed558690e8d6e0bbefb0c9.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 #root{

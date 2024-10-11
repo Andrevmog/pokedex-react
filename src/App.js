@@ -1,22 +1,26 @@
 import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './Pages/Home'
+import Header from './Components/Header';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 function App() {
+
+  const queryClient = new QueryClient();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    
+    <QueryClientProvider client={queryClient}>
+    <Router>
+    <Header />
+      <Routes>  
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
+    <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+    
   );
 }
 

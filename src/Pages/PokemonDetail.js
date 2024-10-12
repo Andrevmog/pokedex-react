@@ -168,17 +168,17 @@ function PokemonDetail() {
       </div>
 
       <button
-        className="flex absolute left-1/3 bottom-20 transform -translate-y-1/3 bg-gray-600 text-white p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
-        onClick={handlePrevPokemon}
-      >
-        <AiOutlineLeft size={24} /> Anterior
-      </button>
-      <button
-        className="flex absolute right-1/3 bottom-20 transform -translate-y-1/3 bg-gray-600 text-white p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
-        onClick={handleNextPokemon}
-      >
-        Próximo <AiOutlineRight size={24} />
-      </button>
+  className="flex absolute left-1/3 bottom-20 transform -translate-y-1/3 bg-gray-600 text-white p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
+  onClick={handlePrevPokemon}
+>
+  <AiOutlineLeft size={24} /> Anterior
+</button>
+<button
+  className="flex absolute right-1/3 bottom-20 transform -translate-y-1/3 bg-gray-600 text-white p-3 rounded-lg hover:bg-gray-700 transition-colors duration-200 shadow-lg hover:shadow-xl"
+  onClick={handleNextPokemon}
+>
+  Próximo <AiOutlineRight size={24} />
+</button>
     </div>
   );
 }

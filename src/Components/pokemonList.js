@@ -2,11 +2,10 @@ import React, { useEffect, useRef } from "react";
 import { useInfiniteQuery } from "react-query";
 import Card from './Card';
 import { fetchPokemons } from '../Services/pokemonService'; // Importa o serviço
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function PokemonList() {
     const loadMoreRef = useRef(null); // Ref para o observador
-    const navigate = useNavigate(); // Hook para navegação
     const {
         data,
         status,
@@ -17,7 +16,7 @@ function PokemonList() {
         ({ pageParam = 0 }) => fetchPokemons(40, pageParam), // Passa o limite e o offset
         {
             getNextPageParam: (lastPage) => {
-                return lastPage.next ? (lastPage.results.length / 40) : undefined; // Calcule a próxima página
+                return lastPage.next ? lastPage.offset : undefined; // Retorna o próximo offset
             },
         }
     );
@@ -26,7 +25,7 @@ function PokemonList() {
     const renderPokemonCards = () => {
         if (!data || !data.pages) return <div>Nenhum Pokémon encontrado.</div>;
 
-        return data.pages.map((page) =>
+        return data.pages.flatMap((page) => 
             page.results.map((pokemon) => {
                 const pokemonName = pokemon.name; // Nome do Pokémon
                 return (
@@ -44,6 +43,8 @@ function PokemonList() {
             if (entries[0].isIntersecting && hasNextPage) {
                 fetchNextPage(); // Carrega a próxima página quando o elemento está visível
             }
+        }, {
+            rootMargin: '300px', // Ajuste este valor conforme necessário
         });
 
         if (loadMoreRef.current) {
@@ -56,6 +57,11 @@ function PokemonList() {
             }
         };
     }, [loadMoreRef, hasNextPage, fetchNextPage]);
+
+    // Função para rolar para o topo da página
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     return (
         <div className='flex mt-20 w-full flex-col items-center'>
@@ -73,10 +79,10 @@ function PokemonList() {
 
             {/* Botão fixo no canto inferior direito */}
             <button
-                onClick={() => navigate('/')} // Redireciona para a página inicial
+                onClick={scrollToTop} // Chama a função para rolar para o topo
                 className="fixed bottom-4 right-4 bg-green-500 text-white p-2 rounded shadow-lg hover:bg-green-600 transition"
             >
-                Voltar ao Início
+                Voltar ao Topo
             </button>
         </div>
     );

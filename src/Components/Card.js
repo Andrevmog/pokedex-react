@@ -51,7 +51,7 @@ const Card = ({ pokemon }) => {
     }
 
     return (
-        <div className="relative flex flex-col items-center justify-center p-4 w-full bg-red-400 border border-red-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+        <div className="relative flex flex-col items-center justify-center p-4 w-full bg-gray-600 border border-black rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
             <audio ref={audioRef} src={data.cries.latest} />
             <img className="bg-[url('https://pokemonrevolution.net/forum/uploads/monthly_2019_10/d843fov-5ad2d436-789b-48f4-91ac-7a553ca26306.png.3c7185d83015a14741e5cf34bdae8c99.png')] bg-cover object-contain h-32 w-32 mb-4 rounded-lg border-4 border-gray-800 bg-white shadow-md" src={data.sprites.front_default} alt={data.name} />
             <h5 className="text-lg font-bold text-gray-800">

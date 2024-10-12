@@ -26,9 +26,11 @@ const typeColors = {
 };
 
 const Card = ({ pokemon }) => {
+    // Assume que pokemon.id é o ID do Pokémon
+    const { name } = pokemon; // Obtém o ID do Pokémon
     const { data, isLoading, error } = useQuery(
-        ['pokemon', pokemon.url],
-        () => fetchPokemonData(pokemon.url) // Usa a função do serviço
+        ['pokemon', name], // Usa o ID como chave da consulta
+        () => fetchPokemonData(`${name}`) // Construindo a URL com o ID
     );
 
     const audioRef = useRef(null);
@@ -49,9 +51,9 @@ const Card = ({ pokemon }) => {
     }
 
     return (
-        <div className="relative flex flex-col items-center justify-center p-4 w-1/5 bg-red-400 border border-red-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+        <div className="relative flex flex-col items-center justify-center p-4 w-full bg-red-400 border border-red-800 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
             <audio ref={audioRef} src={data.cries.latest} />
-            <img className="object-cover h-32 w-32 mb-4 rounded-full border-4 border-gray-800 bg-white" src={data.sprites.front_default} alt={data.name} />
+            <img className="object-contain h-32 w-32 mb-4 rounded-lg border-4 border-gray-800 bg-white shadow-md" src={data.sprites.front_default} alt={data.name} />
             <h5 className="text-lg font-bold text-gray-800">
                 {data.name.charAt(0).toUpperCase() + data.name.slice(1)}
             </h5>
@@ -66,13 +68,13 @@ const Card = ({ pokemon }) => {
                 ))}
             </div>
             {/* Botão de som no canto superior direito */}
-            <button 
+            {/* <button 
                 onClick={handlePlaySound} 
                 className="absolute top-2 right-2 p-1 bg-gray-800 rounded-full text-white hover:bg-gray-700 transition duration-300"
                 aria-label="Reproduzir som do Pokémon"
             >
                 <FaVolumeUp />
-            </button>
+            </button> */}
         </div>
     );
 };

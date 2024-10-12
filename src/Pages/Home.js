@@ -1,5 +1,5 @@
 import React from 'react';
-import PokemonList from './pokemonList';
+import PokemonList from '../Components/pokemonList';
 
 const Home = () => {
   return (

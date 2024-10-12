@@ -1,32 +1,61 @@
-import React, { useState } from "react";
-import { useQuery } from "react-query";
+import React, { useEffect, useRef } from "react";
+import { useInfiniteQuery } from "react-query";
 import Card from './Card';
 import { fetchPokemons } from '../Services/pokemonService'; // Importa o serviço
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function PokemonList() {
-    const [page, setPage] = useState(0);
-    
-    const { data, status } = useQuery(
-        ["pokemons", page],
-        () => fetchPokemons(40, page * 40), // Passa o limite e o offset
+    const loadMoreRef = useRef(null); // Ref para o observador
+    const navigate = useNavigate(); // Hook para navegação
+    const {
+        data,
+        status,
+        fetchNextPage,
+        hasNextPage,
+    } = useInfiniteQuery(
+        "pokemons",
+        ({ pageParam = 0 }) => fetchPokemons(40, pageParam), // Passa o limite e o offset
         {
-            keepPreviousData: true,
+            getNextPageParam: (lastPage) => {
+                return lastPage.next ? (lastPage.results.length / 40) : undefined; // Calcule a próxima página
+            },
         }
     );
 
+    // Função para renderizar os cartões de Pokémon
     const renderPokemonCards = () => {
-        if (!data || !data.results) return <div>Nenhum Pokémon encontrado.</div>;
+        if (!data || !data.pages) return <div>Nenhum Pokémon encontrado.</div>;
 
-        return data.results.map((pokemon) => {
-            const pokemonName = pokemon.name; // Nome do Pokémon
-            return (
-                <Link class='flex w-1/6' key={pokemonName} to={`/pokemon/${pokemonName}`}>
-                    <Card pokemon={pokemon} />
-                </Link>
-            );
-        });
+        return data.pages.map((page) =>
+            page.results.map((pokemon) => {
+                const pokemonName = pokemon.name; // Nome do Pokémon
+                return (
+                    <Link className='flex w-1/6' key={pokemonName} to={`/pokemon/${pokemonName}`}>
+                        <Card pokemon={pokemon} />
+                    </Link>
+                );
+            })
+        );
     };
+
+    // Efeito para configurar a rolagem infinita
+    useEffect(() => {
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && hasNextPage) {
+                fetchNextPage(); // Carrega a próxima página quando o elemento está visível
+            }
+        });
+
+        if (loadMoreRef.current) {
+            observer.observe(loadMoreRef.current);
+        }
+
+        return () => {
+            if (loadMoreRef.current) {
+                observer.unobserve(loadMoreRef.current);
+            }
+        };
+    }, [loadMoreRef, hasNextPage, fetchNextPage]);
 
     return (
         <div className='flex mt-20 w-full flex-col items-center'>
@@ -39,13 +68,15 @@ function PokemonList() {
                     </div>
                 )}
             </div>
+            {/* Elemento observador para carregar mais Pokémon */}
+            <div ref={loadMoreRef} className="h-10" />
 
+            {/* Botão fixo no canto inferior direito */}
             <button
-                onClick={() => setPage((prev) => prev + 1)} // Incrementa a página
-                className="mt-4 bg-blue-500 text-white p-2 rounded shadow-lg hover:bg-blue-600 transition"
-                disabled={status === "loading"} // Desabilita o botão durante o carregamento
+                onClick={() => navigate('/')} // Redireciona para a página inicial
+                className="fixed bottom-4 right-4 bg-green-500 text-white p-2 rounded shadow-lg hover:bg-green-600 transition"
             >
-                Carregar mais Pokémon
+                Voltar ao Início
             </button>
         </div>
     );

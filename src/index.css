@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body{
+html, body {
   display: flex;
   height: 100%;
   width: 100%;
@@ -17,7 +17,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   margin: 30px;
   position: relative;
-  background-image: url('https://i.pinimg.com/originals/af/92/99/af92992e01ed558690e8d6e0bbefb0c9.jpg');
+  background: linear-gradient(to bottom, #87CEEB, #00BFFF, #FFFFFF);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -26,12 +26,11 @@ body {
   align-items: center;
 }
 
-#root{
+#root {
   display: flex;
   height: 100%;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

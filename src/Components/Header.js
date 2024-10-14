@@ -11,7 +11,7 @@ const Header = () => {
                             <a href="/" className="hover:underline">Home</a>
                         </li>
                         <li>
-                            <a href="/" className="hover:underline">Sobre</a>
+                            <a href="/list" className="hover:underline">Pokemon List</a>
                         </li>
                         <li>
                             <a href="/" className="hover:underline">Contato</a>

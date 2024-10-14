@@ -1,12 +1,12 @@
 import React from 'react';
 import PokemonList from '../Components/pokemonList';
 
-const Home = () => {
+const List = () => {
   return (
     <div class='flex justify-items-center align-middle w-full gap-2'>
-        HOME PAGE
+        <PokemonList></PokemonList>
     </div>
   );
 };
 
-export default Home;
+export default List;

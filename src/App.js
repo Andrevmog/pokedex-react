@@ -1,10 +1,12 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home';
+import List from './Pages/List';
 import Header from './Components/Header';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import PokemonDetail from './Pages/PokemonDetail'; // Importa a nova página
+
 
 function App() {
 
@@ -16,7 +18,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/pokemon/:name" element={<PokemonDetail />} /> {/* Rota para o detalhe do Pokémon */}
+          <Route path="/list" element={<List />} />
+          <Route path="/pokemon/:name" element={<PokemonDetail />} />
         </Routes>
       </Router>
       <ReactQueryDevtools initialIsOpen={false} />

@@ -1,29 +1,9 @@
 import React, { useEffect, useRef } from "react";
 import { useQuery } from "react-query";
 import { fetchPokemonData } from '../Services/pokemonService'; // Importa o serviço
+import { typeColors } from '../Utils/typeColors'
 import { FaVolumeUp } from 'react-icons/fa';
 
-// Definindo as cores dos tipos de Pokémon
-const typeColors = {
-    grass: 'bg-green-500',
-    poison: 'bg-purple-500',
-    fire: 'bg-red-500',
-    water: 'bg-blue-500',
-    bug: 'bg-green-600',
-    normal: 'bg-gray-400',
-    flying: 'bg-blue-300',
-    electric: 'bg-yellow-400',
-    ground: 'bg-brown-600',
-    rock: 'bg-gray-600',
-    fairy: 'bg-pink-400',
-    fighting: 'bg-red-700',
-    psychic: 'bg-pink-500',
-    ice: 'bg-cyan-300',
-    ghost: 'bg-purple-700',
-    steel: 'bg-gray-300',
-    dark: 'bg-gray-800',
-    dragon: 'bg-indigo-600',
-};
 
 const Card = ({ pokemon }) => {
     // Assume que pokemon.id é o ID do Pokémon
@@ -51,9 +31,9 @@ const Card = ({ pokemon }) => {
     }
 
     return (
-        <div className="relative flex flex-col items-center justify-center p-4 w-full bg-gray-600 border border-black rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+        <div className="relative flex flex-col items-center justify-center p-4 w-full bg-gray-200 bg-opacity-70 shadow-lg border-2 rounded-lg hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
             <audio ref={audioRef} src={data.cries.latest} />
-            <img className="bg-[url('https://pokemonrevolution.net/forum/uploads/monthly_2019_10/d843fov-5ad2d436-789b-48f4-91ac-7a553ca26306.png.3c7185d83015a14741e5cf34bdae8c99.png')] bg-cover object-contain h-32 w-32 mb-4 rounded-lg border-4 border-gray-800 bg-white shadow-md" src={data.sprites.front_default} alt={data.name} />
+            <img className="bg-[url('https://pokemonrevolution.net/forum/uploads/monthly_2019_10/d843fov-5ad2d436-789b-48f4-91ac-7a553ca26306.png.3c7185d83015a14741e5cf34bdae8c99.png')] bg-cover object-contain h-32 w-32 mb-4 rounded-full border-4 shadow-md" src={data.sprites.front_default} alt={data.name} />
             <h5 className="text-lg font-bold text-gray-800">
                 {data.name.charAt(0).toUpperCase() + data.name.slice(1)}
             </h5>

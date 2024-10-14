@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useQuery } from "react-query";
 import { fetchPokemonData } from '../Services/pokemonService'; // Importa o serviço
 import { typeColors } from '../Utils/typeColors'
-import { FaVolumeUp } from 'react-icons/fa';
+
 
 
 const Card = ({ pokemon }) => {

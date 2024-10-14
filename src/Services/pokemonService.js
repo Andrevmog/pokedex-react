@@ -18,6 +18,12 @@ const fetchPokemonData = async (identifier) => {
   return data;
 };
 
+// Função para buscar detalhes de um movimento a partir da URL do movimento
+const fetchMoveDetails = async (moveUrl) => {
+  const { data } = await axios.get(moveUrl); // Usamos axios para obter os detalhes do movimento
+  return data;
+};
+
 const fetchPokemonEncounters = async (name) => {
   const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}/encounters`);
   if (!response.ok) {
@@ -39,4 +45,4 @@ const fetchAllPokemonNames = async () => {
   return allPokemonNames;
 };
 
-export { fetchPokemons, fetchPokemonData, fetchPokemonEncounters, fetchAllPokemonNames };
+export { fetchPokemons, fetchPokemonData, fetchPokemonEncounters, fetchMoveDetails, fetchAllPokemonNames };

@@ -1,7 +1,7 @@
 // Components/PokemonSearch.js
 
 import React, { useState } from 'react';
-import { useAllPokemonNames } from '../hooks/useAllPokemonNames'; // Ajuste o caminho conforme necessário
+import { useAllPokemonNames } from '../Hooks/useAllPokemonNames'; // Ajuste o caminho conforme necessário
 
 const PokemonSearch = ({ onSelect }) => {
   const { data: pokemonNames, isLoading, isError } = useAllPokemonNames();

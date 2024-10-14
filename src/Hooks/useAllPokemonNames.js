@@ -1,10 +1,11 @@
+// src/hooks/useAllPokemonNames.js
+
 import { useQuery } from '@tanstack/react-query';
-import { fetchPokemons, fetchAllPokemonNames } from '../api/pokemonService';
+import { fetchAllPokemonNames } from '../Services/pokemonService';
 
 export const useAllPokemonNames = () => {
-  return useQuery(['allPokemonNames'], fetchAllPokemonNames, {
-    staleTime: Infinity,
-    cacheTime: Infinity,
-    refetchOnWindowFocus: false,
+  return useQuery({
+    queryKey: ['allPokemonNames'],
+    queryFn: fetchAllPokemonNames,
   });
 };

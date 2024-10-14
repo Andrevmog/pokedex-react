@@ -14,7 +14,7 @@ const Header = () => {
                             <a href="/list" className="hover:underline">Pokemon List</a>
                         </li>
                         <li>
-                            <a href="/" className="hover:underline">Contato</a>
+                            <a href="/battle" className="hover:underline">Battle</a>
                         </li>
                     </ul>
                 </nav>
